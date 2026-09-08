@@ -1,0 +1,31 @@
+{
+  "name": "🛰️ Echoes Lost in Orbit | 🟢 Beginner (Broken Echoes)",
+  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "bash .devcontainer/echoes-lost-in-orbit_beginner/post-create.sh",
+  "postStartCommand": "bash .devcontainer/echoes-lost-in-orbit_beginner/post-start.sh",
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "adventures/echoes-lost-in-orbit/README.md"
+      ]
+    }
+  },
+  "forwardPorts": [
+    30100
+  ],
+  "portsAttributes": {
+    "30100": {
+      "label": "ArgoCD",
+      "onAutoForward": "notify"
+    }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
+  "remoteEnv": {
+    "OFFON_EXTERNAL_SOURCE": "dynatrace-community"
+  }
+}
