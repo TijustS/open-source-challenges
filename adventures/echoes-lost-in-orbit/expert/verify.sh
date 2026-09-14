@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR/../../../lib/scripts/loader.sh"
-set_tracking_context "echoes-lost-in-orbit" "expert" "01" "12" "2025"
+set_tracking_context "echoes-lost-in-orbit" "expert" "01" "09" "2026"
 
 OBJECTIVE="By the end of this level, you should have:
 - Automated rollout progression to HotROD version 1.76.0 driven by observability signals
@@ -23,15 +23,16 @@ DOCS_URL="https://offon.dev/adventures/echoes-lost-in-orbit/levels/expert"
 print_header \
   'Challenge 01: Echoes Lost in Orbit' \
   '🔴 Expert: Hyperspace Operations & Transport' \
-  'Smoke Test Verification'
+  'Verification'
 
 check_prerequisites kubectl curl
 
-print_sub_header "Running smoke tests..."
+print_sub_header "Running verification checks..."
 
-# Track test results across all checks
+# Init test counters
 TESTS_PASSED=0
 TESTS_FAILED=0
+FAILED_CHECKS=()
 
 # Check if HotROD is deployed and reachable
 is_app_reachable "hotrod" "hotrod" "" 8080 8080 "HotROD" \
@@ -77,4 +78,24 @@ check_prometheus_metrics "Prometheus Metrics" "prometheus" "prometheus-server" "
 
 print_new_line
 
-print_test_summary "hyperspace operations & transport" "$DOCS_URL" "$OBJECTIVE"
+# =============================================================================
+# Summary & Next Steps
+# =============================================================================
+failed_checks_json="[]"
+if [[ -n "${FAILED_CHECKS[*]:-}" ]]; then
+  failed_checks_json=$(printf '%s\n' "${FAILED_CHECKS[@]}" | jq -R . | jq -s .)
+fi
+
+if [[ $TESTS_FAILED -gt 0 ]]; then
+  track_verification_completed "failed" "$failed_checks_json"
+  print_verification_summary "echoes-lost-in-orbit" "$DOCS_URL" "$OBJECTIVE"
+  exit 1
+fi
+
+track_verification_completed "success" "$failed_checks_json"
+
+print_header "Test Results Summary"
+print_success "✅ PASSED: All $TESTS_PASSED verification checks passed!"
+print_new_line
+
+check_submission_readiness "echoes-lost-in-orbit" "expert"

@@ -1,15 +1,16 @@
 {
   "name": "🛰️ Echoes Lost in Orbit | 🟢 Beginner (Broken Echoes)",
   "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/adventures/echoes-lost-in-orbit/beginner",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "postCreateCommand": "bash .devcontainer/echoes-lost-in-orbit_beginner/post-create.sh",
-  "postStartCommand": "bash .devcontainer/echoes-lost-in-orbit_beginner/post-start.sh",
+  "postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/echoes-lost-in-orbit_beginner/post-create.sh",
+  "postStartCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/echoes-lost-in-orbit_beginner/post-start.sh",
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "adventures/echoes-lost-in-orbit/README.md"
+        "manifests/appset.yaml"
       ]
     }
   },
