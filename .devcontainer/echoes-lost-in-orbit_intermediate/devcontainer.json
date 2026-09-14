@@ -1,15 +1,16 @@
 {
   "name": "🛰️ Echoes Lost in Orbit | 🟡 Intermediate (The Silent Canary)",
   "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/adventures/echoes-lost-in-orbit/intermediate",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "postCreateCommand": "bash .devcontainer/echoes-lost-in-orbit_intermediate/post-create.sh",
-  "postStartCommand": "bash .devcontainer/echoes-lost-in-orbit_intermediate/post-start.sh",
+  "postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/echoes-lost-in-orbit_intermediate/post-create.sh",
+  "postStartCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/echoes-lost-in-orbit_intermediate/post-start.sh",
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "adventures/echoes-lost-in-orbit/README.md"
+        "manifests/base/analysis-template.yaml"
       ]
     }
   },

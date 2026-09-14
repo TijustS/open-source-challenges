@@ -44,6 +44,14 @@ Notes for reviewers and maintainers:
 - **`adventures/lex-imperfecta/` is live and hand-copied.** Syncing `05-lex-imperfecta` now
   overwrites it rather than being rejected. That should work — it even fixes a level name the
   hand-copy missed — but it is untested, so review that PR closely.
+- **`adventures/echoes-lost-in-orbit/` deliberately diverges from upstream.** It was authored
+  against the old challenge structure — `smoke-test.sh`, no `Makefile`, and a "Verify Adventure"
+  GitHub Actions step that does not exist in this repo, so a solved level never produced a
+  certificate. It has been moved onto the current structure (`verify.sh` ending in
+  `check_submission_readiness`), and `docs/` was dropped. A sync `rm -rf`s both
+  `adventures/<slug>/` and `.devcontainer/<slug>_*` before copying, so re-syncing
+  `01-echoes-lost-in-orbit` reverts all of it and puts the dead end back. Fix upstream first, or
+  re-apply this divergence on top of that PR before merging.
 
 ## Attribution
 
